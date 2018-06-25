@@ -1,5 +1,3 @@
-
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -7,9 +5,6 @@
 #include "Components/SpotLightComponent.h"
 #include "FlashlightBase.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class DERELICTSWAMPLANDS_API AFlashlightBase : public AToolBase
 {
@@ -22,9 +17,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void Use() override;
 	UFUNCTION(BlueprintCallable, Category = "Tool")
-	virtual void Reload();
+	virtual void Reload() override;
 	UFUNCTION(BlueprintCallable, Category = "Tool")
-	virtual void ToggleHolding();
+	virtual void ToggleHolding() override;
 	UFUNCTION(BlueprintCallable, Category = "Light")
 	void UpdateFlashlight(float deltaSeconds);
 
