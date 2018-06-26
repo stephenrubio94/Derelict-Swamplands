@@ -1,40 +1,30 @@
 #include "ToolBase.h"
 
 // Sets default values
-AToolBase::AToolBase()
+UToolBase::UToolBase()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
 	RootItem = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
-	RootComponent = RootItem;
 }
 
 // Called when the game starts or when spawned
-void AToolBase::BeginPlay()
+void UToolBase::BeginPlay()
 {
 	Super::BeginPlay();
-	RootComponent->USceneComponent::ToggleVisibility(true);
+	RootItem->USceneComponent::ToggleVisibility(true);
 }
 
-// Called every frame
-void AToolBase::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
-void AToolBase::Use()
+void UToolBase::Use()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Super use"));
 }
 
-void AToolBase::Reload()
+void UToolBase::Reload()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Super reload"));
 }
 
-void AToolBase::ToggleHolding()
+void UToolBase::ToggleHolding()
 {
-	RootComponent->USceneComponent::ToggleVisibility(true);
+	RootItem->USceneComponent::ToggleVisibility(true);
 }
 

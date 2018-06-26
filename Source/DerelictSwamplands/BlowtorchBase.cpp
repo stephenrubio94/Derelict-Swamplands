@@ -1,47 +1,46 @@
-
-
 #include "BlowtorchBase.h"
+#include "Kismet/GameplayStatics.h"
 
-ABlowtorchBase::ABlowtorchBase()
+UBlowtorchBase::UBlowtorchBase()
 {
 	isLoaded = false;
 	ReloadItem = EInventoryItemEnum::Kerosene;
 }
 
-void ABlowtorchBase::BeginPlay()
+void UBlowtorchBase::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-void ABlowtorchBase::Use()
+void UBlowtorchBase::Use()
 {
 	if (isLoaded)
 	{
-		////Play sparks animation
-		////Raytrace
-		////Cast to door
-		//if (door.isAirtight)
-		//{
-		//	//Write to HUD: Door Already Airtight
-		//}
-		//else
-		//{
-		//	door.Seal();
-		//	loaded = false;
-		//}
+		//Play sparks animation
+		ADoor* result = Cast<ADoor>(Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->raytrace());
+		//If Cast fails
+		if (result->isAirtight)
+		{
+			((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Door Already Airtight"));
+		}
+		else
+		{
+			result->Seal();
+			isLoaded = false;
+		}
 	}
 	else
 	{
-		//Write to HUD: Blowtorch needs kerosene
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Blowtorch needs kerosene"));
 	}
 }
 
-void ABlowtorchBase::Reload()
+void UBlowtorchBase::Reload()
 {
 	Super::Reload();
 	if (isLoaded)
 	{
-		//Write to HUD: Blowtorch already has kerosene
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Blowtorch already has kerosene"));
 	}
 	else
 	{
@@ -49,7 +48,7 @@ void ABlowtorchBase::Reload()
 	}
 }
 
-void ABlowtorchBase::ToggleHolding()
+void UBlowtorchBase::ToggleHolding()
 {
 	Super::ToggleHolding();
 }

@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class DERELICTSWAMPLANDS_API ARebreatherBase : public AToolBase
+class DERELICTSWAMPLANDS_API URebreatherBase : public UToolBase
 {
 	GENERATED_BODY()
 	

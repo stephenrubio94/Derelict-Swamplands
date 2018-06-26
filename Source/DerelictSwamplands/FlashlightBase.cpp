@@ -6,7 +6,7 @@ float drainRate;
 bool isOn;
 bool lowBatteryDisplayed;
 
-AFlashlightBase::AFlashlightBase()
+UFlashlightBase::UFlashlightBase()
 {
 	maxIntensity = 6000;
 	battery = 100;
@@ -15,16 +15,16 @@ AFlashlightBase::AFlashlightBase()
 	lowBatteryDisplayed = false;
 	light = CreateDefaultSubobject<USpotLightComponent>(TEXT("light"));
 	light->Intensity = 0.0f;
-	RootComponent = light;
+	RootItem = light;
 	ReloadItem = EInventoryItemEnum::Battery;
 }
 
-void AFlashlightBase::BeginPlay()
+void UFlashlightBase::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-void AFlashlightBase::Use()
+void UFlashlightBase::Use()
 {
 	UE_LOG(LogTemp, Warning, TEXT("FlashlightBase use"));
 
@@ -40,7 +40,7 @@ void AFlashlightBase::Use()
 	}
 }
 
-void AFlashlightBase::Reload()
+void UFlashlightBase::Reload()
 {
 	Super::Reload();
 	if (battery < 90)
@@ -57,14 +57,14 @@ void AFlashlightBase::Reload()
 	}
 }
 
-void AFlashlightBase::ToggleHolding()
+void UFlashlightBase::ToggleHolding()
 {
 	Super::ToggleHolding();
 	light->ULightComponent::SetIntensity(0);
 	isOn = false;
 }
 
-void AFlashlightBase::UpdateFlashlight(float deltaSeconds)
+void UFlashlightBase::UpdateFlashlight(float deltaSeconds)
 {
 	if (!isOn || battery <= 0)
 		return;

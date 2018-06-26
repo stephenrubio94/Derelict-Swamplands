@@ -6,13 +6,13 @@
 #include "FlashlightBase.generated.h"
 
 UCLASS()
-class DERELICTSWAMPLANDS_API AFlashlightBase : public AToolBase
+class DERELICTSWAMPLANDS_API UFlashlightBase : public UToolBase
 {
 	GENERATED_BODY()
 protected:
 	virtual void BeginPlay() override;
 public:
-	AFlashlightBase();
+	UFlashlightBase();
 
 	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void Use() override;

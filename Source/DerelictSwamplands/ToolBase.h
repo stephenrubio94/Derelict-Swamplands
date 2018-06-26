@@ -6,22 +6,17 @@
 #include "ToolBase.generated.h"
 
 UCLASS()
-class DERELICTSWAMPLANDS_API AToolBase : public AActor
+class DERELICTSWAMPLANDS_API UToolBase : public USceneComponent
 {
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
-	AToolBase();
+	UToolBase();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void Use();	
 	UFUNCTION(BlueprintCallable, Category = "Tool")
@@ -33,5 +28,5 @@ public:
 	EInventoryItemEnum ReloadItem;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
-	class USceneComponent* RootItem;
+	class USceneComponent* RootItem;	
 };

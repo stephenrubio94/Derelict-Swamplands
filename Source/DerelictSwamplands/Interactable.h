@@ -12,12 +12,9 @@ class DERELICTSWAMPLANDS_API AInteractable : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	AInteractable();
-
-public:	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
-	FString mouseoverText;
+	FText mouseOverText;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
 	bool DisplayingMessage;

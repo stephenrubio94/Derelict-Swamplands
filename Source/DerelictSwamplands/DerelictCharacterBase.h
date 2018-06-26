@@ -1,5 +1,3 @@
-
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -8,29 +6,41 @@
 #include "BlowtorchBase.h"
 #include "RebreatherBase.h"
 #include "Interactable.h"
+#include "DerelictGameModeBase.h"
+#include "Components/CapsuleComponent.h"
+#include "Components/InputComponent.h"
+#include "GameFramework/InputSettings.h"
+#include "Camera/CameraComponent.h"
 #include "DerelictCharacterBase.generated.h"
 
 UCLASS()
 class DERELICTSWAMPLANDS_API ADerelictCharacterBase : public ACharacter
 {
 	GENERATED_BODY()
-
-public:
-	// Sets default values for this character's properties
-	ADerelictCharacterBase();
-	
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
+	void MoveForward(float Val);
+	void MoveRight(float Val);
+	void TurnAtRate(float Rate);
+	void LookUpAtRate(float Rate);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		class UCameraComponent* FirstPersonCameraComponent;
 public:	
-	// Called every frame
+	ADerelictCharacterBase();
+	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
+
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		float BaseTurnRate;
 
-	void EquipItem(AToolBase* toolToEquip);
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		float BaseLookUpRate;
+
+	void EquipItem(UToolBase* toolToEquip);
 	void EquipFlashlight();
 	void EquipRebreather();
 	void EquipBlowtorch();
@@ -39,9 +49,9 @@ public:
 	void Interact();
 	void UpdateMouseoverText();
 	AInteractable* raytrace();
+	void SetInGas(bool inGas, float DPS);
+	void CheckGas(float deltaSeconds);
 
-	void StartJump();
-	void EndJump();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		float health;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
@@ -55,11 +65,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		bool mouseOverTextWritten;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		AFlashlightBase* flashlight;
+		class UFlashlightBase* flashlight;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		ABlowtorchBase* blowtorch;
+		class URebreatherBase* rebreather;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		ARebreatherBase* rebreather;	
+		class UBlowtorchBase* blowtorch;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		AToolBase* equippedItem;
+		UToolBase* equippedItem;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+		TMap<EInventoryItemEnum, int> inventoryData;
 };

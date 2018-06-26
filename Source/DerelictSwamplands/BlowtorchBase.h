@@ -2,16 +2,17 @@
 
 #include "CoreMinimal.h"
 #include "ToolBase.h"
+#include "Door.h"
 #include "BlowtorchBase.generated.h"
 
 UCLASS()
-class DERELICTSWAMPLANDS_API ABlowtorchBase : public AToolBase
+class DERELICTSWAMPLANDS_API UBlowtorchBase : public UToolBase
 {
 	GENERATED_BODY()	
 protected:
 	virtual void BeginPlay() override;
 public:
-	ABlowtorchBase();
+	UBlowtorchBase();
 
 	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void Use() override;
