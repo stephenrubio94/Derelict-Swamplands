@@ -16,7 +16,7 @@ UFlashlightBase::UFlashlightBase()
 	light = CreateDefaultSubobject<USpotLightComponent>(TEXT("light"));
 	light->Intensity = 0.0f;
 	RootItem = light;
-	ReloadItem = EInventoryItemEnum::Battery;
+	ReloadItem = EInventory::Battery;
 }
 
 void UFlashlightBase::BeginPlay()

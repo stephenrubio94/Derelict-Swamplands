@@ -1,10 +1,9 @@
 #include "BlowtorchBase.h"
-#include "Kismet/GameplayStatics.h"
 
 UBlowtorchBase::UBlowtorchBase()
 {
 	isLoaded = false;
-	ReloadItem = EInventoryItemEnum::Kerosene;
+	ReloadItem = EInventory::Kerosene;
 }
 
 void UBlowtorchBase::BeginPlay()
@@ -20,9 +19,7 @@ void UBlowtorchBase::Use()
 		ADoor* result = Cast<ADoor>(Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->raytrace());
 		//If Cast fails
 		if (result->isAirtight)
-		{
 			((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Door Already Airtight"));
-		}
 		else
 		{
 			result->Seal();

@@ -25,7 +25,7 @@ public:
 	virtual void ToggleHolding();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
-	EInventoryItemEnum ReloadItem;
+	EInventory ReloadItem;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
 	class USceneComponent* RootItem;	

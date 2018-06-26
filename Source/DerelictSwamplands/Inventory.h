@@ -7,5 +7,5 @@ class DERELICTSWAMPLANDS_API Inventory
 {
 public:
 	Inventory();
-	TMap<EInventoryItemEnum, int> inventoryData;
+	TMap<EInventory, int> inventoryData;
 };

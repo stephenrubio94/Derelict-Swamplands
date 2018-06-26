@@ -3,45 +3,44 @@
 ASubstation::ASubstation()
 {
 	isWorking = false;
+	//TODO player reference broken
+	player = Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 }
 
 void ASubstation::BeginPlay()
 {
-	//mouseoverText = type.toString() + "\nUse Wiring Kit to Repair";
+	mouseOverText = FText::FromString("Use Wiring Kit to Repair");
 }
 
 void ASubstation::Interact()
 {
 	if (isWorking)
 	{
-		//Message: system repaired
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("System Working"));
 		return;
 	}
 
-	//if (playerCharacter.inventoryObject[EInventoryEnum::WiringKit] > 0)
-	//{
-	//	if (type.toString() == "SystemPower")
-	//	{
-	//		isWorking = true;
-	//		playerCharacter.inventoryObject[EInventoryEnum::WiringKit]--;
-	//		mouseOverText = type.toString() + "\nWorking";
-	//		//Write: Repaired
-	//	}
-	//	else
-	//	{
-	//		//if System Power repaired
-	//		//{
-	//		////repair it
-	//		//	mouseOverText = type.toString() + "\nWorking";
-	//		//	//Write: Repaired
-	//		//}
-
-	//		//else
-	//			//Write: Error: repair system power
-	//	}
-	//}
-	//else
-	//{
-	//	//Write to HUD: Wiring Kit Required
-	//}
+	if (player->inventory[EInventory::WiringKit] > 0)
+	{
+		if (type == ESubstation::SystemPower)
+		{
+			isWorking = true;
+			player->inventory[EInventory::WiringKit]--;
+			mouseOverText = FText::FromString("Working");
+			((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("System Repaired"));
+		}
+		else
+		{
+			if (subsection->power->isWorking)
+			{
+				isWorking = true;
+				mouseOverText = FText::FromString("Working");
+				((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("System Repaired"));
+			}
+			else
+				((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Primary System Needs Power"));
+		}
+	}
+	else
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Wiring Kit Required"));
 }

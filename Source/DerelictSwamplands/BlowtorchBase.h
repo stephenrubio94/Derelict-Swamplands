@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "ToolBase.h"
 #include "Door.h"
+#include "Kismet/GameplayStatics.h"
 #include "BlowtorchBase.generated.h"
 
 UCLASS()

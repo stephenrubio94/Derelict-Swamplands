@@ -24,13 +24,10 @@ ADerelictCharacterBase::ADerelictCharacterBase()
 	moveSpeed = 10;
 	mouseOverTextWritten = false;
 
-	inventoryData.Add(EInventoryItemEnum::WiringKit, 0);
-	inventoryData.Add(EInventoryItemEnum::Battery, 0);
-	inventoryData.Add(EInventoryItemEnum::Kerosene, 0);
-	inventoryData.Add(EInventoryItemEnum::AirFilter, 0);
-
-	//Trying to get enum display text
-	FText test2 = (FindObject<UEnum>(ANY_PACKAGE, TEXT("EInventoryItemEnum"), true))->GetDisplayNameTextByIndex((int)EInventoryItemEnum::AirFilter);
+	inventory.Add(EInventory::WiringKit, 0);
+	inventory.Add(EInventory::Battery, 0);
+	inventory.Add(EInventory::Kerosene, 0);
+	inventory.Add(EInventory::AirFilter, 0);
 }
 
 void ADerelictCharacterBase::BeginPlay()
@@ -80,10 +77,10 @@ void ADerelictCharacterBase::Reload()
 {
 	if (equippedItem == nullptr)
 		return;
-	if (inventoryData[equippedItem->ReloadItem] > 0)
+	if (inventory[equippedItem->ReloadItem] > 0)
 	{
 		equippedItem->Reload();
-		inventoryData[equippedItem->ReloadItem]--;
+		inventory[equippedItem->ReloadItem]--;
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("Need more items" /*+ inventoryData[equippedItem->ReloadItem].toString()*/));

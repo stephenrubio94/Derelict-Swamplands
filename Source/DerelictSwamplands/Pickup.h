@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Interactable.h"
 #include "DerelictGameModeBase.h"
+#include "DerelictCharacterBase.h"
 #include "Pickup.generated.h"
 
 /**
@@ -15,7 +16,7 @@ class DERELICTSWAMPLANDS_API APickup : public AInteractable
 {
 	GENERATED_BODY()
 public:
-	APickup();
 	virtual void Interact() override;	
-	EInventoryItemEnum itemType;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+	EInventory itemType;
 };

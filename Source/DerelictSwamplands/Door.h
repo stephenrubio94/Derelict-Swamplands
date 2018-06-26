@@ -28,6 +28,8 @@ public:
 		void Seal();
 	UFUNCTION(BlueprintCallable, Category = "Actor")
 		bool CanOpenDoor();
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Open Door"))
+		void BPOpenDoor();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		bool isLocked;

@@ -18,21 +18,29 @@ void ADoor::BeginPlay()
 }
 void ADoor::Interact()
 {
-
+	if (!CanOpenDoor())
+	{
+		//Play locked sound
+	}
+	else
+		BPOpenDoor();
 }
 
 void ADoor::UpdateMouseoverText()
 {
+	FString newMouseOverText;
 	if (isLocked)
-		mouseOverText = FText::FromString("E To Interact, Locked, ");
+		newMouseOverText = "E To Interact, Locked, ";
 	else
-		mouseOverText = FText::FromString("E To Interact, Unlocked, ");
+		newMouseOverText = "E To Interact, Unlocked, ";
 	if (isAirtight)
-		mouseOverText = FText::Format(mouseOverText, FText::FromString("sealed"));
+		newMouseOverText = "sealed";
 	else
-		mouseOverText = FText::Format(mouseOverText, FText::FromString("unsealed"));
+		newMouseOverText = "unsealed";
 	if (isBroken)
-		mouseOverText = FText::Format(mouseOverText, FText::FromString("broken"));
+		newMouseOverText = "broken";
+
+	mouseOverText = FText::AsCultureInvariant(newMouseOverText);
 }
 
 bool ADoor::CanOpenDoor()

@@ -6,7 +6,7 @@
 #include "DerelictGameModeBase.generated.h"
 
 UENUM(BlueprintType)		//"BlueprintType" is essential to include
-enum class EInventoryItemEnum : uint8
+enum class EInventory : uint8
 {
 	WiringKit 	UMETA(DisplayName = "Wiring Kit"),
 	Battery 	UMETA(DisplayName = "Battery"),

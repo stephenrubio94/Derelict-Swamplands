@@ -75,5 +75,5 @@ public:
 		UToolBase* equippedItem;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		TMap<EInventoryItemEnum, int> inventoryData;
+		TMap<EInventory, int> inventory;
 };
