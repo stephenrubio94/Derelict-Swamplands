@@ -1,22 +1,23 @@
 #include "Substation.h"
+#include "DerelictCharacterBase.h"
+#include "Kismet/GameplayStatics.h"
 
 ASubstation::ASubstation()
 {
 	isWorking = false;
-	//TODO player reference broken
-	player = Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 }
 
 void ASubstation::BeginPlay()
 {
 	mouseOverText = FText::FromString("Use Wiring Kit to Repair");
+	player = Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 }
 
 void ASubstation::Interact()
 {
 	if (isWorking)
 	{
-		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("System Working"));
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("System Working"));
 		return;
 	}
 
@@ -27,7 +28,8 @@ void ASubstation::Interact()
 			isWorking = true;
 			player->inventory[EInventory::WiringKit]--;
 			mouseOverText = FText::FromString("Working");
-			((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("System Repaired"));
+			((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("System Repaired"));
+			subsection->UpdateAllGas();
 		}
 		else
 		{
@@ -35,12 +37,13 @@ void ASubstation::Interact()
 			{
 				isWorking = true;
 				mouseOverText = FText::FromString("Working");
-				((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("System Repaired"));
+				((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("System Repaired"));
+				subsection->UpdateAllGas();
 			}
 			else
-				((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Primary System Needs Power"));
+				((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Primary System Needs Power"));
 		}
 	}
 	else
-		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Wiring Kit Required"));
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Wiring Kit Required"));
 }

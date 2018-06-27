@@ -20,4 +20,5 @@ public:
 	class ASubstation* air;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
 	class ASubstation* lights;
+	void UpdateAllGas();
 };
