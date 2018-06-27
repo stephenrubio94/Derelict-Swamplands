@@ -13,10 +13,10 @@ class DERELICTSWAMPLANDS_API AInteractable : public AActor
 	
 public:	
 	AInteractable();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	FText mouseOverText;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	bool DisplayingMessage;
 
 	UFUNCTION(BlueprintCallable, Category = "Actor")

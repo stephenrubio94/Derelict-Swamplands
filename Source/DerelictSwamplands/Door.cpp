@@ -28,15 +28,15 @@ void ADoor::UpdateMouseoverText()
 {
 	FString newMouseOverText;
 	if (isLocked)
-		newMouseOverText = "E To Interact, Locked, ";
+		newMouseOverText = "E To Interact, Locked";
 	else
-		newMouseOverText = "E To Interact, Unlocked, ";
+		newMouseOverText = "E To Interact, Unlocked";
 	if (isAirtight)
-		newMouseOverText = "sealed";
+		newMouseOverText += ", Sealed";
 	else
-		newMouseOverText = "unsealed";
+		newMouseOverText += ", Unsealed";
 	if (isBroken)
-		newMouseOverText = "broken";
+		newMouseOverText += ", Broken";
 
 	mouseOverText = FText::AsCultureInvariant(newMouseOverText);
 }
@@ -45,12 +45,12 @@ bool ADoor::CanOpenDoor()
 {
 	if (isLocked)
 	{
-		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Door Locked"));
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Door Locked"));
 		return false;
 	}
 	if (isBroken)
 	{
-		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Door Broken"));
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Door Broken"));
 		return false;
 	}
 	return true;
