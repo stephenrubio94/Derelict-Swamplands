@@ -35,18 +35,13 @@ void AGasBase::Tick(float DeltaTime)
 void AGasBase::UpdateGasStatus()
 {
 	bool isRoomSealed = true;
-	for (int x = 0; x < linkedDoors.Num(); x++)
+	for (int x = 0; x < linkedDoors.Num(); x++ && isRoomSealed)
 	{
-		//TODO Bug, if any door is not airtight, gas spreads to all linkedGasBPs
 		if (linkedDoors[x] != nullptr && !linkedDoors[x]->isAirtight)
 		{
 			isRoomSealed = false;
-			for (int y = 0; y < linkedDoors[x]->linkedGasBPs.Num(); y++)
-			{
-				if (linkedDoors[x]->linkedGasBPs[y]->containsGas)
-					containsGas = true;
-			}
-			break;
+			if (linkedDoors[x]->linkedGasBPs[0]->containsGas || linkedDoors[x]->linkedGasBPs[1]->containsGas)
+				containsGas = true;
 		}
 	}
 	if (isRoomSealed && subsection->air->isWorking)
