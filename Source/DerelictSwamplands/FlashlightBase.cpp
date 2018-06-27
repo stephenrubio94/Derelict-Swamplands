@@ -19,6 +19,8 @@ UFlashlightBase::UFlashlightBase()
 	ReloadItem = EInventory::Battery;
 }
 
+//TODO Tick Update Flashlight
+
 void UFlashlightBase::BeginPlay()
 {
 	Super::BeginPlay();

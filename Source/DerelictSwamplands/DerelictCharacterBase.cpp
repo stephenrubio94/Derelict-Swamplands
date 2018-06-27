@@ -12,11 +12,11 @@ ADerelictCharacterBase::ADerelictCharacterBase()
 	FirstPersonCameraComponent->RelativeLocation = FVector(-39.56f, 1.75f, 64.f);
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
-	flashlight = CreateDefaultSubobject<UFlashlightBase>(TEXT("FlashlightParented"));
+	flashlight = CreateDefaultSubobject<UToolBase>(TEXT("FlashlightParented"));
 	flashlight->SetupAttachment(FirstPersonCameraComponent);
-	rebreather = CreateDefaultSubobject<URebreatherBase>(TEXT("RebreatherParented"));
+	rebreather = CreateDefaultSubobject<UToolBase>(TEXT("RebreatherParented"));
 	rebreather->SetupAttachment(FirstPersonCameraComponent);
-	blowtorch = CreateDefaultSubobject<UBlowtorchBase>(TEXT("BlowtorchParented"));
+	blowtorch = CreateDefaultSubobject<UToolBase>(TEXT("BlowtorchParented"));
 	blowtorch->SetupAttachment(FirstPersonCameraComponent);
 
 	isInGas = false;
@@ -39,7 +39,6 @@ void ADerelictCharacterBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	CheckGas(DeltaTime);
-	//flashlight->UpdateFlashlight(DeltaTime);
 	UpdateMouseoverText();
 }
 

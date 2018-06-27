@@ -1,12 +1,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "FlashlightBase.h"
-#include "BlowtorchBase.h"
-#include "RebreatherBase.h"
+#include "ToolBase.h"
 #include "Interactable.h"
 #include "DerelictGameModeBase.h"
+#include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/InputSettings.h"
@@ -65,11 +63,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		bool mouseOverTextWritten;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		class UFlashlightBase* flashlight;
+		class UToolBase* flashlight;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		class URebreatherBase* rebreather;
+		class UToolBase* rebreather;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		class UBlowtorchBase* blowtorch;
+		class UToolBase* blowtorch;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		UToolBase* equippedItem;

@@ -3,6 +3,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "UObject/ConstructorHelpers.h"
+#include "DerelictPlayerControllerBase.h"
+#include "FPMainWidgetBase.h"
+#include "DerelictHUDBase.h"
+#include "Subsection.h"
 #include "DerelictGameModeBase.generated.h"
 
 UENUM(BlueprintType)		//"BlueprintType" is essential to include
@@ -30,6 +34,8 @@ public:
 	ADerelictGameModeBase();
 	void SetMouseoverText(FText textToWrite);
 	void WriteToDisplay(FText textToWrite);
+	TArray<ASubsection*> subsections;
+	ASubsection* getSubsection(int subsection);
 protected:
 	virtual void BeginPlay() override;
 };

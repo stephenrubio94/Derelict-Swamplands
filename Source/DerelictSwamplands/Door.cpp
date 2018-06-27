@@ -1,16 +1,14 @@
-
-
 #include "Door.h"
+#include "GasBase.h"
 
-// Sets default values
 ADoor::ADoor()
 {
 	isLocked = false;
 	isAirtight = true;
 	isBroken = false;
+	linkedGasBPs.Init(nullptr, 2);
 }
 
-// Called when the game starts or when spawned
 void ADoor::BeginPlay()
 {
 	Super::BeginPlay();
@@ -56,12 +54,11 @@ bool ADoor::CanOpenDoor()
 		return false;
 	}
 	return true;
-
 }
 
 void ADoor::Seal()
 {
 	isAirtight = true;
-	//for (int x = 0; x < 2; x++)
-	//	linkedGasBPs[0]->updateGasStatus();
+	for (int x = 0; x < 2; x++)
+		linkedGasBPs[x]->UpdateGasStatus();
 }

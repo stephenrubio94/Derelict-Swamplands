@@ -7,7 +7,7 @@
 #include "DerelictGameModeBase.h"
 #include "DerelictCharacterBase.h"
 #include "Kismet/GameplayStatics.h"
-#include "Subsection.h"
+#include "GasBase.h"
 #include "Substation.generated.h"
 
 /**
@@ -26,6 +26,8 @@ public:
 	bool isWorking;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	ESubstation type;
-	ASubsection* subsection;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+	int subsectionID;
 	ADerelictCharacterBase* player;	
+	ASubsection* subsection;
 };

@@ -1,16 +1,13 @@
-
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Interactable.h"
+#include "DerelictGameModeBase.h"
 #include "DerelictCharacterBase.h"
-#include "DerelictPlayerControllerBase.h"
+#include "Kismet/GameplayStatics.h"
 #include "Door.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class DERELICTSWAMPLANDS_API ADoor : public AInteractable
 {
@@ -39,6 +36,8 @@ public:
 		bool isAirtight;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		int doorID;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-	//	AGasBP* linkedGasBPs[2];
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+		TArray<class AGasBase*> linkedGasBPs;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+		class ASubsection* subsection;
 };
