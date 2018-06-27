@@ -24,4 +24,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
 	bool isLoaded;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+		class UStaticMeshComponent* blowtorchMesh;
 };

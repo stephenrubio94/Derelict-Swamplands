@@ -1,4 +1,7 @@
 #include "DerelictCharacterBase.h"
+#include "FlashlightBase.h"
+#include "RebreatherBase.h"
+#include "BlowtorchBase.h"
 
 ADerelictCharacterBase::ADerelictCharacterBase()
 {
@@ -12,12 +15,12 @@ ADerelictCharacterBase::ADerelictCharacterBase()
 	FirstPersonCameraComponent->RelativeLocation = FVector(-39.56f, 1.75f, 64.f);
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
-	flashlight = CreateDefaultSubobject<UToolBase>(TEXT("FlashlightParented"));
-	flashlight->SetupAttachment(FirstPersonCameraComponent);
-	rebreather = CreateDefaultSubobject<UToolBase>(TEXT("RebreatherParented"));
-	rebreather->SetupAttachment(FirstPersonCameraComponent);
-	blowtorch = CreateDefaultSubobject<UToolBase>(TEXT("BlowtorchParented"));
-	blowtorch->SetupAttachment(FirstPersonCameraComponent);
+	flashlightBase = CreateDefaultSubobject<UFlashlightBase>(TEXT("FlashlightParented"));
+	flashlightBase->SetupAttachment(FirstPersonCameraComponent);
+	rebreatherBase = CreateDefaultSubobject<URebreatherBase>(TEXT("RebreatherParented"));
+	rebreatherBase->SetupAttachment(FirstPersonCameraComponent);
+	blowtorchBase = CreateDefaultSubobject<UBlowtorchBase>(TEXT("BlowtorchParented"));
+	blowtorchBase->SetupAttachment(FirstPersonCameraComponent);
 
 	isInGas = false;
 	health = 100;
@@ -39,6 +42,7 @@ void ADerelictCharacterBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	CheckGas(DeltaTime);
+	Cast<UFlashlightBase>(flashlightBase)->UpdateFlashlight(DeltaTime);
 	UpdateMouseoverText();
 }
 
@@ -59,17 +63,17 @@ void ADerelictCharacterBase::EquipItem(UToolBase* toolToEquip)
 
 void ADerelictCharacterBase::EquipFlashlight()
 {
-	EquipItem(flashlight);
+	EquipItem(flashlightBase);
 }
 
 void ADerelictCharacterBase::EquipRebreather()
 {
-	EquipItem(rebreather);
+	EquipItem(rebreatherBase);
 }
 
 void ADerelictCharacterBase::EquipBlowtorch()
 {
-	EquipItem(blowtorch);
+	EquipItem(blowtorchBase);
 }
 
 void ADerelictCharacterBase::Reload()
@@ -82,7 +86,7 @@ void ADerelictCharacterBase::Reload()
 		inventory[equippedItem->ReloadItem]--;
 	}
 	else
-		UE_LOG(LogTemp, Warning, TEXT("Need more items" /*+ inventoryData[equippedItem->ReloadItem].toString()*/));
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Need more items" + inventory[equippedItem->ReloadItem]));
 }
 
 void ADerelictCharacterBase::Action()

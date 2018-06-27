@@ -6,7 +6,7 @@ float drainRate;
 bool isOn;
 bool lowBatteryDisplayed;
 
-UFlashlightBase::UFlashlightBase()
+UFlashlightBase::UFlashlightBase() : UToolBase()
 {
 	maxIntensity = 6000;
 	battery = 100;
@@ -15,19 +15,15 @@ UFlashlightBase::UFlashlightBase()
 	lowBatteryDisplayed = false;
 	light = CreateDefaultSubobject<USpotLightComponent>(TEXT("light"));
 	light->Intensity = 0.0f;
-	RootItem = light;
+	light->SetupAttachment(this);
 	ReloadItem = EInventory::Battery;
 }
 
 //TODO Tick Update Flashlight
 
-void UFlashlightBase::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
 void UFlashlightBase::Use()
 {
+	Super::Use();
 	UE_LOG(LogTemp, Warning, TEXT("FlashlightBase use"));
 
 	if (isOn)
@@ -55,7 +51,7 @@ void UFlashlightBase::Reload()
 	}
 	else
 	{
-		//Print to HUD: Battery nearly full
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Battery nearly full"));
 	}
 }
 
@@ -66,13 +62,14 @@ void UFlashlightBase::ToggleHolding()
 	isOn = false;
 }
 
+//Run every tick
 void UFlashlightBase::UpdateFlashlight(float deltaSeconds)
 {
 	if (!isOn || battery <= 0)
 		return;
 	if (battery < 10 && !lowBatteryDisplayed)
 	{
-		//Print to HUD: Need new battery
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Need new battery"));
 		lowBatteryDisplayed = true;
 	}
 	battery -= drainRate * deltaSeconds;

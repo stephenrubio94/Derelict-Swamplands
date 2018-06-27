@@ -10,7 +10,7 @@ class DERELICTSWAMPLANDS_API UFlashlightBase : public UToolBase
 {
 	GENERATED_BODY()
 protected:
-	virtual void BeginPlay() override;
+	//virtual void BeginPlay() override;
 public:
 	UFlashlightBase();
 
@@ -35,5 +35,5 @@ public:
 	bool lowBatteryDisplayed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-	class USpotLightComponent* light;
+	USpotLightComponent* light;
 };

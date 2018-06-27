@@ -26,6 +26,16 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class UCameraComponent* FirstPersonCameraComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actor", meta = (AllowPrivateAccess = "true"))
+		class UToolBase* flashlightBase;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actor", meta = (AllowPrivateAccess = "true"))
+		class UToolBase* rebreatherBase;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actor", meta = (AllowPrivateAccess = "true"))
+		class UToolBase* blowtorchBase;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actor", meta = (AllowPrivateAccess = "true"))
+		class UToolBase* equippedItem;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actor", meta = (AllowPrivateAccess = "true"))
+		class UToolBase* testTool;
 public:	
 	ADerelictCharacterBase();
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
@@ -62,15 +72,6 @@ public:
 		float moveSpeed;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		bool mouseOverTextWritten;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		class UToolBase* flashlight;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		class UToolBase* rebreather;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		class UToolBase* blowtorch;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		UToolBase* equippedItem;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		TMap<EInventory, int> inventory;

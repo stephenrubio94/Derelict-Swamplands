@@ -1,26 +1,34 @@
+
+
 #pragma once
+
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "Components/SceneComponent.h"
 #include "DerelictGameModeBase.h"
-#include "ToolBase.generated.h"
+#include "PlayerTool.generated.h"
 
-UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class DERELICTSWAMPLANDS_API UToolBase : public USceneComponent
+
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+class DERELICTSWAMPLANDS_API UPlayerTool : public USceneComponent
 {
 	GENERATED_BODY()
-	
+
+public:	
+	// Sets default values for this component's properties
+	UPlayerTool();
+
+
 protected:
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	UFUNCTION(BlueprintCallable, Category = "Tool")
-	virtual void Use();	
+		virtual void Use();
 	UFUNCTION(BlueprintCallable, Category = "Tool")
-	virtual void Reload();
+		virtual void Reload();
 	UFUNCTION(BlueprintCallable, Category = "Tool")
-	virtual void ToggleHolding();
+		virtual void ToggleHolding();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
-	EInventory ReloadItem;	
+		EInventory ReloadItem;
 };

@@ -4,6 +4,7 @@ UBlowtorchBase::UBlowtorchBase()
 {
 	isLoaded = false;
 	ReloadItem = EInventory::Kerosene;
+	blowtorchMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 }
 
 void UBlowtorchBase::BeginPlay()
@@ -17,18 +18,20 @@ void UBlowtorchBase::Use()
 	{
 		//Play sparks animation
 		ADoor* result = Cast<ADoor>(Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->raytrace());
-		//If Cast fails
+		if (!result)
+			return;
 		if (result->isAirtight)
-			((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Door Already Airtight"));
+			((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Door Already Airtight"));
 		else
 		{
+			((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Door Sealed"));
 			result->Seal();
 			isLoaded = false;
 		}
 	}
 	else
 	{
-		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Blowtorch needs kerosene"));
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Blowtorch needs kerosene"));
 	}
 }
 
@@ -37,11 +40,12 @@ void UBlowtorchBase::Reload()
 	Super::Reload();
 	if (isLoaded)
 	{
-		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(FText::FromString("Blowtorch already has kerosene"));
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Blowtorch already has kerosene"));
 	}
 	else
 	{
 		isLoaded = true;
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Kerosene loaded"));
 	}
 }
 

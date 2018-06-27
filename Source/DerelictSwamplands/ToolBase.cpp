@@ -1,14 +1,9 @@
 #include "ToolBase.h"
 
-UToolBase::UToolBase()
-{
-	RootItem = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
-}
-
 void UToolBase::BeginPlay()
 {
 	Super::BeginPlay();
-	RootItem->USceneComponent::ToggleVisibility(true);
+	ToggleVisibility(true);
 }
 
 void UToolBase::Use()
@@ -23,6 +18,6 @@ void UToolBase::Reload()
 
 void UToolBase::ToggleHolding()
 {
-	RootItem->USceneComponent::ToggleVisibility(true);
+	ToggleVisibility(true);
 }
 
