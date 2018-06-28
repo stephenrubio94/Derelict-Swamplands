@@ -27,15 +27,13 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class UCameraComponent* FirstPersonCameraComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actor", meta = (AllowPrivateAccess = "true"))
-		class UToolBase* flashlightBase;
+		class UFlashlightBase* FlashlightBase;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actor", meta = (AllowPrivateAccess = "true"))
-		class UToolBase* rebreatherBase;
+		class URebreatherBase* RebreatherBase;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actor", meta = (AllowPrivateAccess = "true"))
-		class UToolBase* blowtorchBase;
+		class UBlowtorchBase* BlowtorchBase;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actor", meta = (AllowPrivateAccess = "true"))
 		class UToolBase* equippedItem;
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actor", meta = (AllowPrivateAccess = "true"))
-		class UToolBase* testTool;
 public:	
 	ADerelictCharacterBase();
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }

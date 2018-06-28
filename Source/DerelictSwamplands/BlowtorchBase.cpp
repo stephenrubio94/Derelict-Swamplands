@@ -5,6 +5,7 @@ UBlowtorchBase::UBlowtorchBase()
 	isLoaded = false;
 	ReloadItem = EInventory::Kerosene;
 	blowtorchMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	niceName = FText::FromString("Blowtorch");
 }
 
 void UBlowtorchBase::BeginPlay()

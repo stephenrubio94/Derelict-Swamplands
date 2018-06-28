@@ -13,18 +13,17 @@ UFlashlightBase::UFlashlightBase() : UToolBase()
 	drainRate = 1;
 	isOn = false;
 	lowBatteryDisplayed = false;
-	light = CreateDefaultSubobject<USpotLightComponent>(TEXT("light"));
+	light = CreateDefaultSubobject<USpotLightComponent>(TEXT("Light"));
 	light->Intensity = 0.0f;
+	light->SetLightColor(FColor(120,120,25));
 	light->SetupAttachment(this);
 	ReloadItem = EInventory::Battery;
+	niceName = FText::FromString("Flashlight");
 }
-
-//TODO Tick Update Flashlight
 
 void UFlashlightBase::Use()
 {
 	Super::Use();
-	UE_LOG(LogTemp, Warning, TEXT("FlashlightBase use"));
 
 	if (isOn)
 	{

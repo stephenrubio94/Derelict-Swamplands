@@ -23,4 +23,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
 	EInventory ReloadItem;	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+		FText niceName;
 };

@@ -15,12 +15,13 @@ ADerelictCharacterBase::ADerelictCharacterBase()
 	FirstPersonCameraComponent->RelativeLocation = FVector(-39.56f, 1.75f, 64.f);
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
-	flashlightBase = CreateDefaultSubobject<UFlashlightBase>(TEXT("FlashlightParented"));
-	flashlightBase->SetupAttachment(FirstPersonCameraComponent);
-	rebreatherBase = CreateDefaultSubobject<URebreatherBase>(TEXT("RebreatherParented"));
-	rebreatherBase->SetupAttachment(FirstPersonCameraComponent);
-	blowtorchBase = CreateDefaultSubobject<UBlowtorchBase>(TEXT("BlowtorchParented"));
-	blowtorchBase->SetupAttachment(FirstPersonCameraComponent);
+	FlashlightBase = CreateDefaultSubobject<UFlashlightBase>(TEXT("FlashlightParented"));
+	FlashlightBase->SetupAttachment(FirstPersonCameraComponent);
+	FlashlightBase->RelativeLocation = FVector(20.0f, 0.0f, 0.0f);
+	RebreatherBase = CreateDefaultSubobject<URebreatherBase>(TEXT("RebreatherParented"));
+	RebreatherBase->SetupAttachment(FirstPersonCameraComponent);
+	BlowtorchBase = CreateDefaultSubobject<UBlowtorchBase>(TEXT("BlowtorchParented"));
+	BlowtorchBase->SetupAttachment(FirstPersonCameraComponent);
 
 	isInGas = false;
 	health = 100;
@@ -42,7 +43,7 @@ void ADerelictCharacterBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	CheckGas(DeltaTime);
-	Cast<UFlashlightBase>(flashlightBase)->UpdateFlashlight(DeltaTime);
+	FlashlightBase->UpdateFlashlight(DeltaTime);
 	UpdateMouseoverText();
 }
 
@@ -57,23 +58,22 @@ void ADerelictCharacterBase::EquipItem(UToolBase* toolToEquip)
 	{
 		equippedItem = toolToEquip;
 		equippedItem->ToggleHolding();
-	}
-		
+	}		
 }
 
 void ADerelictCharacterBase::EquipFlashlight()
 {
-	EquipItem(flashlightBase);
+	EquipItem(FlashlightBase);
 }
 
 void ADerelictCharacterBase::EquipRebreather()
 {
-	EquipItem(rebreatherBase);
+	EquipItem(RebreatherBase);
 }
 
 void ADerelictCharacterBase::EquipBlowtorch()
 {
-	EquipItem(blowtorchBase);
+	EquipItem(BlowtorchBase);
 }
 
 void ADerelictCharacterBase::Reload()

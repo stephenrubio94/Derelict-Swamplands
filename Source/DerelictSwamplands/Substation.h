@@ -19,6 +19,7 @@ protected:
 public:
 	ASubstation();
 	virtual void Interact() override;
+	virtual void UpdateMouseoverText() override;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	bool isWorking;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")

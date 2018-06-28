@@ -9,7 +9,6 @@ ASubstation::ASubstation()
 
 void ASubstation::BeginPlay()
 {
-	mouseOverText = FText::FromString("Use Wiring Kit to Repair");
 	player = Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 }
 
@@ -27,7 +26,6 @@ void ASubstation::Interact()
 		{
 			isWorking = true;
 			player->inventory[EInventory::WiringKit]--;
-			mouseOverText = FText::FromString("Working");
 			((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("System Repaired"));
 			subsection->UpdateAllGas();
 		}
@@ -36,7 +34,7 @@ void ASubstation::Interact()
 			if (subsection->power->isWorking)
 			{
 				isWorking = true;
-				mouseOverText = FText::FromString("Working");
+				player->inventory[EInventory::WiringKit]--;
 				((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("System Repaired"));
 				subsection->UpdateAllGas();
 			}
@@ -46,4 +44,12 @@ void ASubstation::Interact()
 	}
 	else
 		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Wiring Kit Required"));
+}
+
+void ASubstation::UpdateMouseoverText()
+{
+	if (!isWorking)
+		mouseOverText = FText::FromString("Use Wiring Kit to Repair");
+	else
+		mouseOverText = FText::FromString("Working");
 }
