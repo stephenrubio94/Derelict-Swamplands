@@ -44,15 +44,16 @@ void ADerelictCharacterBase::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	CheckGas(DeltaTime);
 	FlashlightBase->UpdateFlashlight(DeltaTime);
+	RebreatherBase->UpdateRebreather(DeltaTime);
 	UpdateMouseoverText();
 }
 
 void ADerelictCharacterBase::EquipItem(UToolBase* toolToEquip)
 {
-	if (equippedItem != nullptr)
+	if (equippedItem)
 		equippedItem->ToggleHolding();
 	
-	if (equippedItem != nullptr && equippedItem->GetName() == toolToEquip->GetName())
+	if (equippedItem && equippedItem->GetName() == toolToEquip->GetName())
 		equippedItem = nullptr;
 	else
 	{
@@ -78,7 +79,7 @@ void ADerelictCharacterBase::EquipBlowtorch()
 
 void ADerelictCharacterBase::Reload()
 {
-	if (equippedItem == nullptr)
+	if (!equippedItem)
 		return;
 	if (inventory[equippedItem->ReloadItem] > 0)
 	{
@@ -91,14 +92,14 @@ void ADerelictCharacterBase::Reload()
 
 void ADerelictCharacterBase::Action()
 {
-	if (equippedItem != nullptr)
+	if (equippedItem)
 		equippedItem->Use();
 }
 
 void ADerelictCharacterBase::UpdateMouseoverText()
 {
 	AInteractable* result = raytrace();
-	if (result != nullptr)
+	if (result)
 	{
 		result->UpdateMouseoverText();
 		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(result->mouseOverText);
@@ -114,33 +115,32 @@ void ADerelictCharacterBase::UpdateMouseoverText()
 void ADerelictCharacterBase::Interact()
 {
 	AInteractable* result = raytrace();
-	if (result != nullptr)
+	if (result)
 		result->Interact();
 }
 
 AInteractable* ADerelictCharacterBase::raytrace()
 {
 	FHitResult hitActor(ForceInit);
-	FCollisionQueryParams traceParams = FCollisionQueryParams(FName(TEXT("hitActor")), true, this);
 	FVector CameraLoc;
 	FRotator CameraRot;
 	GetActorEyesViewPoint(CameraLoc, CameraRot);
 
-	if (GetWorld()->LineTraceSingleByChannel(hitActor, CameraLoc, CameraLoc + (CameraRot.Vector() * 200), ECC_Pawn, traceParams))
+	if (GetWorld()->LineTraceSingleByChannel(hitActor, CameraLoc, CameraLoc + (CameraRot.Vector() * 200), ECC_Pawn, FCollisionQueryParams(FName(TEXT("hitActor")), true, this)))
 		return Cast<AInteractable>(hitActor.GetActor());
 	else
 		return nullptr;
 }
 
-void ADerelictCharacterBase::SetInGas(bool inGas, float DPS)
+void ADerelictCharacterBase::SetInGas(bool isInGas, float gasDPS)
 {
-	isInGas = inGas;
-	gasDPS = DPS;
+   	this->isInGas = isInGas;
+	this->gasDPS = gasDPS;
 }
 
 void ADerelictCharacterBase::CheckGas(float deltaSeconds)
 {
-	if (isInGas)
+	if (isInGas && (equippedItem != RebreatherBase || !RebreatherBase->isOn))
 		health -= deltaSeconds * gasDPS;
 }
 

@@ -18,6 +18,7 @@ UFlashlightBase::UFlashlightBase() : UToolBase()
 	light->SetLightColor(FColor(120,120,25));
 	light->SetupAttachment(this);
 	ReloadItem = EInventory::Battery;
+	HUDAmmoText = FText::FromString("Battery: " + FString::FromInt((int)battery));
 	niceName = FText::FromString("Flashlight");
 }
 
@@ -73,4 +74,5 @@ void UFlashlightBase::UpdateFlashlight(float deltaSeconds)
 	}
 	battery -= drainRate * deltaSeconds;
 	light->ULightComponent::SetIntensity(maxIntensity*battery);
+	HUDAmmoText = FText::FromString("Battery: " + FString::FromInt((int)battery));
 }

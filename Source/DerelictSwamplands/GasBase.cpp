@@ -13,11 +13,9 @@ AGasBase::AGasBase()
 
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
 	Box->bGenerateOverlapEvents = true;
-	RootComponent = Box;
 	Box->OnComponentBeginOverlap.AddDynamic(this, &AGasBase::TriggerEnter);
-	Box->OnComponentEndOverlap.AddDynamic(this, &AGasBase::TriggerExit);
-
-	//fog->AttachToComponent(RootComponent);
+	RootComponent = Box;
+	//fog->AttachToComponent(this);
 }
 
 void AGasBase::BeginPlay()
@@ -56,12 +54,6 @@ void AGasBase::ChangeGas(bool containsGas)
 
 void AGasBase::TriggerEnter(UPrimitiveComponent * HitComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
-	if (containsGas)
-		Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->SetInGas(true, DPS);
-}
-
-void AGasBase::TriggerExit(UPrimitiveComponent * HitComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)
-{
-	if (containsGas)
-		Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->SetInGas(false, 0);
+	if (Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)))
+		Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->SetInGas(containsGas, DPS);
 }

@@ -22,8 +22,10 @@ public:
 	virtual void ToggleHolding();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
-	EInventory ReloadItem;	
+		EInventory ReloadItem;	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		FText niceName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+		FText HUDAmmoText;
 };

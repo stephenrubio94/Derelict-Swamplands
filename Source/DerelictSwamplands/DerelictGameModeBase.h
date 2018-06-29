@@ -26,6 +26,8 @@ enum class ESubstation : uint8
 	Lights 	UMETA(DisplayName = "Lights")
 };
 
+
+
 UCLASS()
 class DERELICTSWAMPLANDS_API ADerelictGameModeBase : public AGameModeBase
 {

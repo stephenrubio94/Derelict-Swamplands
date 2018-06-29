@@ -6,6 +6,7 @@ UBlowtorchBase::UBlowtorchBase()
 	ReloadItem = EInventory::Kerosene;
 	blowtorchMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	niceName = FText::FromString("Blowtorch");
+	HUDAmmoText = FText::FromString("Kerosene: Not Loaded");
 }
 
 void UBlowtorchBase::BeginPlay()
@@ -28,6 +29,7 @@ void UBlowtorchBase::Use()
 			((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Door Sealed"));
 			result->Seal();
 			isLoaded = false;
+			HUDAmmoText = FText::FromString("Kerosene: Not Loaded");
 		}
 	}
 	else
@@ -47,6 +49,7 @@ void UBlowtorchBase::Reload()
 	{
 		isLoaded = true;
 		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Kerosene loaded"));
+		HUDAmmoText = FText::FromString("Kerosene: Loaded");
 	}
 }
 
