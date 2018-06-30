@@ -26,18 +26,20 @@ enum class ESubstation : uint8
 	Lights 	UMETA(DisplayName = "Lights")
 };
 
-
-
 UCLASS()
 class DERELICTSWAMPLANDS_API ADerelictGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()	
 public:
 	ADerelictGameModeBase();
+	virtual void BeginPlay() override;
 	void SetMouseoverText(FText textToWrite);
 	void WriteToDisplay(FText textToWrite);
+	void SetMouseoverText(FString textToWrite);
+	void WriteToDisplay(FString textToWrite);
 	TArray<ASubsection*> subsections;
-	ASubsection* getSubsection(int subsection);
-protected:
-	virtual void BeginPlay() override;
+	TArray<FString> EInventoryName;
+	TArray<FString> ESubstationName;
+	FString GetInventoryName(EInventory value);
+	FString GetSubstationName(ESubstation value);
 };

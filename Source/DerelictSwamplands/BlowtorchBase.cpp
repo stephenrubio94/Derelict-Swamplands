@@ -18,7 +18,7 @@ void UBlowtorchBase::Use()
 {
 	if (isLoaded)
 	{
-		//Play sparks animation
+		//TODO Play sparks animation
 		ADoor* result = Cast<ADoor>(Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->raytrace());
 		if (!result)
 			return;

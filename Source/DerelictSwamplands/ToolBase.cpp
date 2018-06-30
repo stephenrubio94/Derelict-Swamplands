@@ -6,15 +6,9 @@ void UToolBase::BeginPlay()
 	ToggleVisibility(true);
 }
 
-void UToolBase::Use()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Super use"));
-}
+void UToolBase::Use() {}
 
-void UToolBase::Reload()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Super reload"));
-}
+void UToolBase::Reload() {}
 
 void UToolBase::ToggleHolding()
 {

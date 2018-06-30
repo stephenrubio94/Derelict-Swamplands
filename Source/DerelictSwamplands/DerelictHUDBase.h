@@ -17,15 +17,7 @@ class ADerelictHUDBase : public AHUD
 {
 	GENERATED_BODY()
 
-public:
-	ADerelictHUDBase();
-	virtual void BeginPlay() override;
-
-	/** Primary draw call for the HUD */
-	virtual void DrawHUD() override;
-	void WriteToHUD(FText textToWrite);
-	void SetMouseOverText(FText mouseOverText);
-	
+public:	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 		UFPMainWidgetBase* mainWidget;
 };

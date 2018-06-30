@@ -13,10 +13,11 @@ class DERELICTSWAMPLANDS_API AInteractable : public AActor
 	
 public:	
 	AInteractable();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+	virtual void BeginPlay() override;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Actor")
 	FText mouseOverText;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actor")
 	bool DisplayingMessage;
 
 	UFUNCTION(BlueprintCallable, Category = "Actor")
@@ -27,4 +28,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	class USceneComponent* RootItem;
+
+	class ADerelictGameModeBase* gameMode;
 };

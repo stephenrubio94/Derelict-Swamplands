@@ -8,6 +8,11 @@ AInteractable::AInteractable()
 	mouseOverText = FText::AsCultureInvariant("Press E to Interact");
 }
 
+void AInteractable::BeginPlay()
+{
+	gameMode = (ADerelictGameModeBase*)GetWorld()->GetAuthGameMode();
+}
+
 void AInteractable::UpdateMouseoverText()
 {
 }

@@ -16,7 +16,9 @@ class DERELICTSWAMPLANDS_API APickup : public AInteractable
 {
 	GENERATED_BODY()
 public:
-	virtual void Interact() override;	
+	APickup();
+	virtual void Interact() override;
+	virtual void UpdateMouseoverText() override;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	EInventory itemType;
 };

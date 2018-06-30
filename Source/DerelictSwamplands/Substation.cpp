@@ -49,7 +49,7 @@ void ASubstation::Interact()
 void ASubstation::UpdateMouseoverText()
 {
 	if (!isWorking)
-		mouseOverText = FText::FromString("Use Wiring Kit to Repair");
+		mouseOverText = FText::FromString(((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->GetSubstationName(type) + ", use wiring kit to repair");
 	else
-		mouseOverText = FText::FromString("Working");
+		mouseOverText = FText::FromString(((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->GetSubstationName(type) + ", working");
 }
