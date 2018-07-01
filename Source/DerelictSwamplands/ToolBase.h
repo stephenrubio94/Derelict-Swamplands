@@ -14,18 +14,14 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void Use();	
-	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void Reload();
-	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void ToggleHolding();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
-		EInventory ReloadItem;	
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		FText niceName;
+		EInventory ReloadItem;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		FText HUDAmmoText;
+	FText niceName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+	FText HUDAmmoText;
 };

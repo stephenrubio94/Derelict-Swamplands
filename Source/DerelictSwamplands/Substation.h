@@ -20,12 +20,9 @@ public:
 	ASubstation();
 	virtual void Interact() override;
 	virtual void UpdateMouseoverText() override;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	bool isWorking;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	ESubstation type;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-	int subsectionID;
 	class ADerelictCharacterBase* player;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	class ASubsection* subsection;

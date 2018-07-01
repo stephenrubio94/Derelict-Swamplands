@@ -15,7 +15,9 @@ AGasBase::AGasBase()
 	Box->bGenerateOverlapEvents = true;
 	Box->OnComponentBeginOverlap.AddDynamic(this, &AGasBase::TriggerEnter);
 	RootComponent = Box;
-	//fog->AttachToComponent(this);
+
+	fog = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Fog"));
+	fog->SetupAttachment(Box);
 }
 
 void AGasBase::BeginPlay()
@@ -44,7 +46,7 @@ void AGasBase::UpdateGasStatus()
 	}
 	if (isRoomSealed && subsection->air->isWorking)
 		containsGas = false;		
-	//fog->SetActorHiddenInGame(containsGas);
+	fog->SetVisibility(containsGas);
 }
 
 void AGasBase::ChangeGas(bool containsGas)

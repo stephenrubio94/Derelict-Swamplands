@@ -1,6 +1,6 @@
 #include "RebreatherBase.h"
 
-URebreatherBase::URebreatherBase() : UToolBase()
+URebreatherBase::URebreatherBase()
 {
 	filterDurability = 100;
 	drainRate = 1;
@@ -9,9 +9,6 @@ URebreatherBase::URebreatherBase() : UToolBase()
 	ReloadItem = EInventory::AirFilter;
 	HUDAmmoText = FText::FromString("Air Filter: " + FString::FromInt((int)filterDurability));
 	niceName = FText::FromString("Rebreather");
-
-	rebreatherMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("RebreatherMesh"));
-	rebreatherMesh->SetupAttachment(this);
 }
 
 void URebreatherBase::Use()

@@ -16,6 +16,7 @@ void APickup::Interact()
 {
 	Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->inventory[itemType]++;
 	gameMode->WriteToDisplay(gameMode->GetInventoryName(itemType) + " picked up");
+	UGameplayStatics::PlaySoundAtLocation(this, PickupSound, GetActorLocation());
 	this->Destroy();
 }
 

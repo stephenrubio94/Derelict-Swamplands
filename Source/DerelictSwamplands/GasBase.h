@@ -17,22 +17,16 @@ protected:
 public:	
 	AGasBase();
 	virtual void Tick(float DeltaTime) override;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		float ID;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		float DPS;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		bool containsGas;
+	float DPS;
+	bool containsGas;
 	bool isDamagingPlayer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		class ASubsection* subsection;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		TArray<class ADoor*> linkedDoors;
+	TArray<class ADoor*> linkedDoors;
 	//TODO make fog work
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		class AActor* fog;
+		class UStaticMeshComponent* fog;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	UBoxComponent* Box;

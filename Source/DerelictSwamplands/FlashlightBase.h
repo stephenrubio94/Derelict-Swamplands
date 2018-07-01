@@ -14,24 +14,16 @@ protected:
 public:
 	UFlashlightBase();
 
-	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void Use() override;
-	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void Reload() override;
-	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void ToggleHolding() override;
-	UFUNCTION(BlueprintCallable, Category = "Light")
 	void UpdateFlashlight(float deltaSeconds);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
 	float maxIntensity;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Battery")
 	float battery;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Battery")
 	float drainRate;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
 	bool isOn;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Battery")
 	bool lowBatteryDisplayed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")

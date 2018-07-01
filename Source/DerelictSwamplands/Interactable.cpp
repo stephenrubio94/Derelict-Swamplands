@@ -3,8 +3,7 @@
 AInteractable::AInteractable()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	RootItem = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
-	RootComponent = RootItem;
+	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
 	mouseOverText = FText::AsCultureInvariant("Press E to Interact");
 }
 

@@ -64,12 +64,9 @@ public:
 		float oxygen;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		bool isInGas;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		float gasDPS;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		float moveSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		bool mouseOverTextWritten;
+	float gasDPS;
+	float moveSpeed;
+	bool mouseOverTextWritten;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		TMap<EInventory, int> inventory;

@@ -9,13 +9,6 @@ ADerelictGameModeBase::ADerelictGameModeBase() : Super()
 	ESubstationName = { "Air Filtration", "System Power", "Lights" };
 }
 
-
-void ADerelictGameModeBase::BeginPlay()
-{
-	//EInventoryName = { "Wiring Kit", "Battery", "Kerosene", "Air Filter" };
-	//ESubstationName = { "Air Filtration", "System Power", "Lights" };
-}
-
 void ADerelictGameModeBase::SetMouseoverText(FText textToWrite)
 {
 	(Cast<UFPMainWidgetBase>(Cast<ADerelictPlayerControllerBase>(GetWorld()->GetFirstPlayerController())->mainWidget))->SetMouseOverText(textToWrite);

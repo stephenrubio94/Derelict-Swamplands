@@ -32,7 +32,6 @@ class DERELICTSWAMPLANDS_API ADerelictGameModeBase : public AGameModeBase
 	GENERATED_BODY()	
 public:
 	ADerelictGameModeBase();
-	virtual void BeginPlay() override;
 	void SetMouseoverText(FText textToWrite);
 	void WriteToDisplay(FText textToWrite);
 	void SetMouseoverText(FString textToWrite);

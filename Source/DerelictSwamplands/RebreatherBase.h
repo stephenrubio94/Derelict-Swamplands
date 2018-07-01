@@ -21,7 +21,4 @@ public:
 	float drainRate;
 	bool isOn;
 	bool lowFilterDisplayed;
-	
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
-		class UStaticMeshComponent* rebreatherMesh;
 };

@@ -21,4 +21,7 @@ public:
 	virtual void UpdateMouseoverText() override;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	EInventory itemType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		class USoundBase* PickupSound;
 };
