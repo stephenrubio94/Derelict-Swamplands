@@ -7,8 +7,6 @@ ADoor::ADoor()
 	isAirtight = true;
 	isBroken = false;
 	isOpen = false;
-	doorOpen = FVector(115, 0, -142);
-	doorClosed = FVector(0, 0, -142);
 	linkedGasBPs.Init(nullptr, 2);
 
 	doorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DoorMesh"));
@@ -19,15 +17,37 @@ ADoor::ADoor()
 	doorFrame->SetRelativeLocation(doorClosed);
 
 	doorOpenTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("Timeline"));
-	TimelineUpdate.BindUFunction(this, FName("UpdateDoorPosition"));
-	TimelineFinished.BindUFunction(this, FName("OnTimelineFinished"));
 }
 
 void ADoor::BeginPlay()
 {
 	Super::BeginPlay();
 	UpdateMouseoverText();
+
+	FOnTimelineFloat onTimelineCallback;
+	FOnTimelineEventStatic onTimelineFinishedCallback;
+
+	doorOpenTimeline = NewObject<UTimelineComponent>(this, FName("TimelineAnimation"));
+	this->BlueprintCreatedComponents.Add(doorOpenTimeline);
+	doorOpenTimeline->SetDirectionPropertyName(FName("TimelineDirection"));
+	doorOpenTimeline->SetTimelineLength(3.0f);
+	onTimelineCallback.BindUFunction(this, FName{ TEXT("TimelineUpdate") });
+	onTimelineFinishedCallback.BindUFunction(this, FName{ TEXT("TimelineFinished") });
+	doorOpenTimeline->AddInterpFloat(DoorOpenCurve, onTimelineCallback);
+	doorOpenTimeline->SetTimelineFinishedFunc(onTimelineFinishedCallback);
+	doorOpenTimeline->RegisterComponent();
+
+	doorClosed = doorMesh->GetRelativeTransform().GetLocation();
+	doorOpen = FVector(doorClosed.X + 110, doorClosed.Y, doorClosed.Z);
 }
+
+void ADoor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (doorOpenTimeline != NULL)
+		doorOpenTimeline->TickComponent(DeltaTime, ELevelTick::LEVELTICK_TimeOnly, NULL);
+}
+
 
 void ADoor::Interact()
 {
@@ -35,14 +55,13 @@ void ADoor::Interact()
 	{
 		UGameplayStatics::PlaySoundAtLocation(this, DoorOpenSound, GetActorLocation());
 		if (isOpen)
-			CloseDoor();
+			doorOpenTimeline->Reverse();
 		else
-			OpenDoor();
+			doorOpenTimeline->PlayFromStart();
+		isOpen = !isOpen;
 	}
 	else
-	{
 		UGameplayStatics::PlaySoundAtLocation(this, DoorLockedSound, GetActorLocation());
-	}
 }
 
 void ADoor::UpdateMouseoverText()
@@ -64,50 +83,22 @@ void ADoor::UpdateMouseoverText()
 
 bool ADoor::CanOpenDoor()
 {
-	if (isLocked)
-	{
-		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Door Locked"));
+	if (isLocked || isBroken)
 		return false;
-	}
-	if (isBroken)
-	{
-		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Door Broken"));
-		return false;
-	}
-	return true;
+	else
+		return true;
 }
 
-void ADoor::UpdateDoorPosition(float value)
+void ADoor::TimelineUpdate(float value)
 {
 	doorMesh->SetRelativeLocation(FMath::Lerp(doorClosed, doorOpen, value));
 }
 
-void ADoor::OnTimelineFinished()
-{
-	isOpen = !isOpen;
-}
+void ADoor::TimelineFinished() {}
 
 void ADoor::Seal()
 {
 	isAirtight = true;
 	for (int x = 0; x < 2; x++)
 		linkedGasBPs[x]->UpdateGasStatus();
-}
-
-void ADoor::OpenDoor()
-{
-	if (DoorOpenCurve)
-	{
-		GLog->Log("TEST");
-		doorOpenTimeline->AddInterpFloat(DoorOpenCurve, TimelineUpdate, FName("Alpha"));
-		doorOpenTimeline->SetTimelineFinishedFunc(TimelineFinished);
-		doorOpenTimeline->SetLooping(false);
-		doorOpenTimeline->SetIgnoreTimeDilation(true);
-		doorOpenTimeline->Play();
-	}
-}
-
-void ADoor::CloseDoor()
-{
-	doorOpenTimeline->Reverse();
 }

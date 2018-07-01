@@ -24,7 +24,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		class ASubsection* subsection;
 	TArray<class ADoor*> linkedDoors;
-	//TODO make fog work
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		class UStaticMeshComponent* fog;
 

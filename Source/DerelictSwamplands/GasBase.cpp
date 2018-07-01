@@ -29,7 +29,6 @@ void AGasBase::BeginPlay()
 void AGasBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//UpdateGasStatus();
 }
 
 void AGasBase::UpdateGasStatus()
@@ -37,7 +36,7 @@ void AGasBase::UpdateGasStatus()
 	bool isRoomSealed = true;
 	for (int x = 0; x < linkedDoors.Num(); x++ && isRoomSealed)
 	{
-		if (linkedDoors[x] != nullptr && !linkedDoors[x]->isAirtight)
+		if (linkedDoors[x] != nullptr && !linkedDoors[x]->isAirtight && linkedDoors[x]->isOpen)
 		{
 			isRoomSealed = false;
 			if (linkedDoors[x]->linkedGasBPs[0]->containsGas || linkedDoors[x]->linkedGasBPs[1]->containsGas)

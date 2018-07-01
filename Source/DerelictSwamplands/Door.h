@@ -16,14 +16,13 @@ class DERELICTSWAMPLANDS_API ADoor : public AInteractable
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 public:
 	ADoor();
 	void Interact();
 	void UpdateMouseoverText();
 	void Seal();
 	bool CanOpenDoor();
-	void OpenDoor();
-	void CloseDoor();
 
 	bool isLocked;
 	bool isBroken;
@@ -35,22 +34,20 @@ public:
 	FVector doorClosed;
 
 	UFUNCTION()
-		void UpdateDoorPosition(float value);
+		void TimelineUpdate(float value);
 	UFUNCTION()
-		void OnTimelineFinished();
-
-	FOnTimelineFloat TimelineUpdate{};
-	FOnTimelineEvent TimelineFinished{};
+		void TimelineFinished();
+	UPROPERTY()
+		TEnumAsByte<ETimelineDirection::Type> TimelineDirection;
 	
 	class UTimelineComponent* doorOpenTimeline;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Timeline")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 		class UCurveFloat* DoorOpenCurve;
 
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 		class UStaticMeshComponent* doorMesh;
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 		class UStaticMeshComponent* doorFrame;
-
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 		class USoundBase* DoorOpenSound;

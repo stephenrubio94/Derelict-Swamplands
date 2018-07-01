@@ -1,5 +1,3 @@
-
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -11,9 +9,10 @@ class DERELICTSWAMPLANDS_API AInteractable : public AActor
 {
 	GENERATED_BODY()
 	
+protected:
+	virtual void Tick(float DeltaTime) override;
 public:	
 	AInteractable();
-	virtual void BeginPlay() override;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Actor")
 	FText mouseOverText;
 	bool DisplayingMessage;
