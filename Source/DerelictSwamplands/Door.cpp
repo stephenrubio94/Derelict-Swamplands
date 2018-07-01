@@ -6,7 +6,21 @@ ADoor::ADoor()
 	isLocked = false;
 	isAirtight = true;
 	isBroken = false;
+	isOpen = false;
+	doorOpen = FVector(115, 0, -142);
+	doorClosed = FVector(0, 0, -142);
 	linkedGasBPs.Init(nullptr, 2);
+
+	doorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DoorMesh"));
+	doorMesh->SetupAttachment(RootComponent);
+	doorMesh->SetRelativeLocation(doorClosed);
+	doorFrame = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DoorFrame"));
+	doorFrame->SetupAttachment(RootComponent);
+	doorFrame->SetRelativeLocation(doorClosed);
+
+	doorOpenTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("Timeline"));
+	TimelineUpdate.BindUFunction(this, FName("UpdateDoorPosition"));
+	TimelineFinished.BindUFunction(this, FName("OnTimelineFinished"));
 }
 
 void ADoor::BeginPlay()
@@ -14,14 +28,21 @@ void ADoor::BeginPlay()
 	Super::BeginPlay();
 	UpdateMouseoverText();
 }
+
 void ADoor::Interact()
 {
-	if (!CanOpenDoor())
+	if (CanOpenDoor())
 	{
-		//Play locked sound
+		UGameplayStatics::PlaySoundAtLocation(this, DoorOpenSound, GetActorLocation());
+		if (isOpen)
+			CloseDoor();
+		else
+			OpenDoor();
 	}
 	else
-		BPOpenDoor();
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, DoorLockedSound, GetActorLocation());
+	}
 }
 
 void ADoor::UpdateMouseoverText()
@@ -56,9 +77,37 @@ bool ADoor::CanOpenDoor()
 	return true;
 }
 
+void ADoor::UpdateDoorPosition(float value)
+{
+	doorMesh->SetRelativeLocation(FMath::Lerp(doorClosed, doorOpen, value));
+}
+
+void ADoor::OnTimelineFinished()
+{
+	isOpen = !isOpen;
+}
+
 void ADoor::Seal()
 {
 	isAirtight = true;
 	for (int x = 0; x < 2; x++)
 		linkedGasBPs[x]->UpdateGasStatus();
+}
+
+void ADoor::OpenDoor()
+{
+	if (DoorOpenCurve)
+	{
+		GLog->Log("TEST");
+		doorOpenTimeline->AddInterpFloat(DoorOpenCurve, TimelineUpdate, FName("Alpha"));
+		doorOpenTimeline->SetTimelineFinishedFunc(TimelineFinished);
+		doorOpenTimeline->SetLooping(false);
+		doorOpenTimeline->SetIgnoreTimeDilation(true);
+		doorOpenTimeline->Play();
+	}
+}
+
+void ADoor::CloseDoor()
+{
+	doorOpenTimeline->Reverse();
 }

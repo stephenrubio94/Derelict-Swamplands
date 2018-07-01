@@ -5,6 +5,7 @@
 #include "DerelictGameModeBase.h"
 #include "DerelictCharacterBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "Runtime/Engine/Classes/Components/TimelineComponent.h"
 #include "Door.generated.h"
 
 
@@ -17,27 +18,42 @@ protected:
 	virtual void BeginPlay() override;
 public:
 	ADoor();
-	UFUNCTION(BlueprintCallable, Category = "Actor")
-		void Interact();
-	UFUNCTION(BlueprintCallable, Category = "Actor")
-		void UpdateMouseoverText();
-	UFUNCTION(BlueprintCallable, Category = "Actor")
-		void Seal();
-	UFUNCTION(BlueprintCallable, Category = "Actor")
-		bool CanOpenDoor();
-	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Open Door"))
-		void BPOpenDoor();
+	void Interact();
+	void UpdateMouseoverText();
+	void Seal();
+	bool CanOpenDoor();
+	void OpenDoor();
+	void CloseDoor();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		bool isLocked;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		bool isBroken;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		bool isAirtight;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		int doorID;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		TArray<class AGasBase*> linkedGasBPs;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		class ASubsection* subsection;
+	bool isLocked;
+	bool isBroken;
+	bool isAirtight;
+	bool isOpen;
+	TArray<class AGasBase*> linkedGasBPs;
+	class ASubsection* subsection;
+	FVector doorOpen;
+	FVector doorClosed;
+
+	UFUNCTION()
+		void UpdateDoorPosition(float value);
+	UFUNCTION()
+		void OnTimelineFinished();
+
+	FOnTimelineFloat TimelineUpdate{};
+	FOnTimelineEvent TimelineFinished{};
+	
+	class UTimelineComponent* doorOpenTimeline;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Timeline")
+		class UCurveFloat* DoorOpenCurve;
+
+	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+		class UStaticMeshComponent* doorMesh;
+	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+		class UStaticMeshComponent* doorFrame;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		class USoundBase* DoorOpenSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		class USoundBase* DoorLockedSound;
 };

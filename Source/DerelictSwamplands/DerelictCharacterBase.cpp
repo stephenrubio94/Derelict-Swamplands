@@ -79,6 +79,7 @@ void ADerelictCharacterBase::EquipBlowtorch()
 
 void ADerelictCharacterBase::Reload()
 {
+	ADerelictGameModeBase* gameMode = ((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode());
 	if (!equippedItem)
 		return;
 	if (inventory[equippedItem->ReloadItem] > 0)
@@ -87,7 +88,7 @@ void ADerelictCharacterBase::Reload()
 		inventory[equippedItem->ReloadItem]--;
 	}
 	else
-		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Need more items" + inventory[equippedItem->ReloadItem]));
+		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Need more " + gameMode->GetInventoryName(equippedItem->ReloadItem)));
 }
 
 void ADerelictCharacterBase::Action()

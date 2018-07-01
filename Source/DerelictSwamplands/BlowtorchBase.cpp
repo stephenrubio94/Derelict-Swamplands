@@ -4,9 +4,11 @@ UBlowtorchBase::UBlowtorchBase()
 {
 	isLoaded = false;
 	ReloadItem = EInventory::Kerosene;
-	blowtorchMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	niceName = FText::FromString("Blowtorch");
 	HUDAmmoText = FText::FromString("Kerosene: Not Loaded");
+
+	blowtorchMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BlowtorchMesh"));
+	blowtorchMesh->SetupAttachment(this);
 }
 
 void UBlowtorchBase::BeginPlay()

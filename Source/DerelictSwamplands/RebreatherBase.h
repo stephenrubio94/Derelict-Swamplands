@@ -11,21 +11,17 @@ class DERELICTSWAMPLANDS_API URebreatherBase : public UToolBase
 public:
 	URebreatherBase();	
 
-	UFUNCTION(BlueprintCallable, Category = "Tool")
-		virtual void Use() override;
-	UFUNCTION(BlueprintCallable, Category = "Tool")
-		virtual void Reload() override;
-	UFUNCTION(BlueprintCallable, Category = "Tool")
-		virtual void ToggleHolding() override;
-	UFUNCTION(BlueprintCallable, Category = "Light")
-		void UpdateRebreather(float deltaSeconds);
+	virtual void Use() override;
+	virtual void Reload() override;
+	virtual void ToggleHolding() override;
+	void UpdateRebreather(float deltaSeconds);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Battery")
-		float filterDurability;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Battery")
-		float drainRate;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-		bool isOn;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Battery")
-		bool lowFilterDisplayed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+	float filterDurability;
+	float drainRate;
+	bool isOn;
+	bool lowFilterDisplayed;
+	
+	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+		class UStaticMeshComponent* rebreatherMesh;
 };

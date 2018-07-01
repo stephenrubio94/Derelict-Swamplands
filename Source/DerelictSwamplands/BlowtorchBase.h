@@ -15,16 +15,13 @@ protected:
 public:
 	UBlowtorchBase();
 
-	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void Use() override;
-	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void Reload() override;
-	UFUNCTION(BlueprintCallable, Category = "Tool")
 	virtual void ToggleHolding() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
 	bool isLoaded;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Mesh)
 		class UStaticMeshComponent* blowtorchMesh;
 };
