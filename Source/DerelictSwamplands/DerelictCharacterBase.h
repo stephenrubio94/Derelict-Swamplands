@@ -40,11 +40,8 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
-		float BaseTurnRate;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
-		float BaseLookUpRate;
+	float BaseTurnRate;
+	float BaseLookUpRate;
 
 	void EquipItem(UToolBase* toolToEquip);
 	void EquipFlashlight();
@@ -53,6 +50,7 @@ public:
 	void Reload();
 	void Action();
 	void Interact();
+	void OpenCrafting();
 	void UpdateMouseoverText();
 	AInteractable* raytrace();
 	void SetInGas(bool inGas, float DPS);

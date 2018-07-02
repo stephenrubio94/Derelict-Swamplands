@@ -11,6 +11,7 @@ class DERELICTSWAMPLANDS_API AInteractable : public AActor
 	
 protected:
 	virtual void Tick(float DeltaTime) override;
+	virtual void BeginPlay() override;
 public:	
 	AInteractable();
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Actor")

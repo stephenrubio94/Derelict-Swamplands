@@ -10,6 +10,7 @@
 #include "CanvasItem.h"
 #include "UObject/ConstructorHelpers.h"
 #include "FPMainWidgetBase.h"
+#include "CraftingWidgetBase.h"
 #include "DerelictHUDBase.generated.h"
 
 UCLASS()
@@ -20,5 +21,7 @@ class ADerelictHUDBase : public AHUD
 public:	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 		UFPMainWidgetBase* mainWidget;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+		UCraftingWidgetBase* craftingWidget;
 };
 

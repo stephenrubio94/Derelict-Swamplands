@@ -1,14 +1,8 @@
-
-
 #pragma once
-
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "FPMainWidgetBase.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class DERELICTSWAMPLANDS_API UFPMainWidgetBase : public UUserWidget
 {

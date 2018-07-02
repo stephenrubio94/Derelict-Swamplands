@@ -3,13 +3,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "UObject/ConstructorHelpers.h"
-#include "DerelictPlayerControllerBase.h"
-#include "FPMainWidgetBase.h"
-#include "DerelictHUDBase.h"
 #include "Subsection.h"
 #include "DerelictGameModeBase.generated.h"
 
-UENUM(BlueprintType)		//"BlueprintType" is essential to include
+UENUM(BlueprintType)
 enum class EInventory : uint8
 {
 	WiringKit 	UMETA(DisplayName = "Wiring Kit"),
@@ -18,12 +15,12 @@ enum class EInventory : uint8
 	AirFilter	UMETA(DisplayName = "AirFilter")
 };
 
-UENUM(BlueprintType)		//"BlueprintType" is essential to include
+UENUM(BlueprintType)
 enum class ESubstation : uint8
 {
 	AirFiltration 	UMETA(DisplayName = "Air Filtration"),
 	SystemPower 	UMETA(DisplayName = "System Power"),
-	Lights 	UMETA(DisplayName = "Lights")
+	Lights 			UMETA(DisplayName = "Lights")
 };
 
 UCLASS()

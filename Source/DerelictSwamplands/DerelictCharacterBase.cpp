@@ -2,6 +2,7 @@
 #include "FlashlightBase.h"
 #include "RebreatherBase.h"
 #include "BlowtorchBase.h"
+#include "DerelictPlayerControllerBase.h"
 
 ADerelictCharacterBase::ADerelictCharacterBase()
 {
@@ -120,6 +121,11 @@ void ADerelictCharacterBase::Interact()
 		result->Interact();
 }
 
+void ADerelictCharacterBase::OpenCrafting()
+{
+	Cast<ADerelictPlayerControllerBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0))->ToggleCraftingMenu();
+}
+
 AInteractable* ADerelictCharacterBase::raytrace()
 {
 	FHitResult hitActor(ForceInit);
@@ -186,4 +192,5 @@ void ADerelictCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerIn
 	PlayerInputComponent->BindAction("Action", IE_Pressed, this, &ADerelictCharacterBase::Action);
 	PlayerInputComponent->BindAction("Reload", IE_Pressed, this, &ADerelictCharacterBase::Reload);
 	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &ADerelictCharacterBase::Interact);
+	PlayerInputComponent->BindAction("OpenCrafting", IE_Pressed, this, &ADerelictCharacterBase::OpenCrafting);
 }

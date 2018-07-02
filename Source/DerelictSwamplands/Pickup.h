@@ -20,7 +20,7 @@ public:
 	virtual void Interact() override;
 	virtual void UpdateMouseoverText() override;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-	EInventory itemType;
+		EInventory itemType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 		class USoundBase* PickupSound;

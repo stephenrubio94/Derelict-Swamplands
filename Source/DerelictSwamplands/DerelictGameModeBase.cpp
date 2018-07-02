@@ -1,4 +1,6 @@
 #include "DerelictGameModeBase.h"
+#include "FPMainWidgetBase.h"
+#include "DerelictPlayerControllerBase.h"
 
 ADerelictGameModeBase::ADerelictGameModeBase() : Super()
 {

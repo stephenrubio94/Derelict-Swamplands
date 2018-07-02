@@ -18,5 +18,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
 		TSubclassOf<class UUserWidget> FPMainWidget;
 	UUserWidget* mainWidget;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
+		TSubclassOf<class UUserWidget> CraftingWidget;
+	UUserWidget* craftingWidget;
+	void ToggleCraftingMenu();
 	virtual void BeginPlay() override;
 };
