@@ -2,6 +2,7 @@
 #include "GasBase.h"
 #include "Door.h"
 
+//Iterates through all gas volumes in the subsection and updates them
 void ASubsection::UpdateAllGas()
 {
 	TArray<AActor*> FoundActors;

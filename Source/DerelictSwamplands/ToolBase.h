@@ -20,7 +20,7 @@ public:
 	virtual void ToggleHolding();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
-		EInventory ReloadItem;
+	EInventory ReloadItem;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	FText niceName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")

@@ -24,6 +24,8 @@ void URebreatherBase::Use()
 void URebreatherBase::Reload()
 {
 	Super::Reload();
+
+	//If filter is over 90, show notification.  Might ask for prompt in the future.
 	if (filterDurability < 90)
 	{
 		lowFilterDisplayed = false;

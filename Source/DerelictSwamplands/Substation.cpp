@@ -14,14 +14,17 @@ void ASubstation::BeginPlay()
 
 void ASubstation::Interact()
 {
+	//Exits if system is already working
 	if (isWorking)
 	{
 		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("System Working"));
 		return;
 	}
 
+	//If player has a wiring kit, restore power
 	if (player->inventory[EInventory::WiringKit] > 0)
 	{
+		//If type is system power, restore it, and update all gas volumes to see if they can be filtered out
 		if (type == ESubstation::SystemPower)
 		{
 			isWorking = true;
@@ -31,6 +34,7 @@ void ASubstation::Interact()
 		}
 		else
 		{
+			//System power is required to restore any other system.  Checks for that.
 			if (subsection->power->isWorking)
 			{
 				isWorking = true;
