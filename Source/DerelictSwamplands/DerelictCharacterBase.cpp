@@ -11,11 +11,13 @@ ADerelictCharacterBase::ADerelictCharacterBase()
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
 
+	//Sets up camera
 	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
 	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
 	FirstPersonCameraComponent->RelativeLocation = FVector(-39.56f, 1.75f, 64.f);
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
+	//Sets up all tool attachments
 	FlashlightBase = CreateDefaultSubobject<UFlashlightBase>(TEXT("FlashlightParented"));
 	FlashlightBase->SetupAttachment(FirstPersonCameraComponent);
 	FlashlightBase->RelativeLocation = FVector(20.0f, 0.0f, 0.0f);
@@ -29,6 +31,7 @@ ADerelictCharacterBase::ADerelictCharacterBase()
 	moveSpeed = 10;
 	mouseOverTextWritten = false;
 
+	//Sets up inventory
 	inventory.Add(EInventory::WiringKit, 0);
 	inventory.Add(EInventory::Battery, 0);
 	inventory.Add(EInventory::Kerosene, 0);
@@ -43,7 +46,7 @@ void ADerelictCharacterBase::BeginPlay()
 void ADerelictCharacterBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	CheckGas(DeltaTime);
+	TickGas(DeltaTime);
 	FlashlightBase->UpdateFlashlight(DeltaTime);
 	RebreatherBase->UpdateRebreather(DeltaTime);
 	UpdateMouseoverText();
@@ -51,11 +54,14 @@ void ADerelictCharacterBase::Tick(float DeltaTime)
 
 void ADerelictCharacterBase::EquipItem(UToolBase* toolToEquip)
 {
+	//If an item is already equipped, hide it
 	if (equippedItem)
 		equippedItem->ToggleHolding();
-	
+
+	//If the player hit the equip key for the currently equipped item, remove it
 	if (equippedItem && equippedItem->GetName() == toolToEquip->GetName())
 		equippedItem = nullptr;
+	//Else, equip the item for the key they did hit
 	else
 	{
 		equippedItem = toolToEquip;
@@ -83,6 +89,7 @@ void ADerelictCharacterBase::Reload()
 	ADerelictGameModeBase* gameMode = ((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode());
 	if (!equippedItem)
 		return;
+	//If player has the reload item in inventory, reload the tool and remove one reload item
 	if (inventory[equippedItem->ReloadItem] > 0)
 	{
 		equippedItem->Reload();
@@ -101,12 +108,14 @@ void ADerelictCharacterBase::Action()
 void ADerelictCharacterBase::UpdateMouseoverText()
 {
 	AInteractable* result = raytrace();
+	//If the raytrace hits an interactable object, set the mouseover text to that
 	if (result)
 	{
 		result->UpdateMouseoverText();
 		((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->SetMouseoverText(result->mouseOverText);
 		mouseOverTextWritten = true;
 	}
+	//Else, set it to nothing
 	else
 	{
 		if (mouseOverTextWritten)
@@ -145,7 +154,7 @@ void ADerelictCharacterBase::SetInGas(bool isInGas, float gasDPS)
 	this->gasDPS = gasDPS;
 }
 
-void ADerelictCharacterBase::CheckGas(float deltaSeconds)
+void ADerelictCharacterBase::TickGas(float deltaSeconds)
 {
 	if (isInGas && (equippedItem != RebreatherBase || !RebreatherBase->isOn))
 		health -= deltaSeconds * gasDPS;

@@ -3,6 +3,8 @@
 #include "Blueprint/UserWidget.h"
 #include "FPMainWidgetBase.generated.h"
 
+//Primary HUD widget
+
 UCLASS()
 class DERELICTSWAMPLANDS_API UFPMainWidgetBase : public UUserWidget
 {

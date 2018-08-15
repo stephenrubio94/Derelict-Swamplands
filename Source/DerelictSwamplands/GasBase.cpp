@@ -8,8 +8,8 @@ AGasBase::AGasBase()
 
 	isDamagingPlayer = false;
 	containsGas = false;
-	DPS = 1;
-	linkedDoors.Init(nullptr, 1);
+	DPS = 1; //TODO balance this
+	linkedDoors.Init(nullptr, 1); //Linked doors are set in editor
 
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
 	Box->bGenerateOverlapEvents = true;
@@ -33,7 +33,9 @@ void AGasBase::Tick(float DeltaTime)
 
 void AGasBase::UpdateGasStatus()
 {
-	bool isRoomSealed = true;
+	bool isRoomSealed = true; //Assumes room is sealed, then checks if it is.
+
+	//Iterates through all linked doors, checks if they are unsealed, and if so, checks if their gas volumes are lethal.  If so, makes this gas volume lethal.
 	for (int x = 0; x < linkedDoors.Num(); x++ && isRoomSealed)
 	{
 		if (linkedDoors[x] != nullptr && !linkedDoors[x]->isAirtight && linkedDoors[x]->isOpen)
@@ -43,6 +45,7 @@ void AGasBase::UpdateGasStatus()
 				containsGas = true;
 		}
 	}
+	//If air filtration system is working and this room is sealed, removes lethal gas from this room.
 	if (isRoomSealed && subsection->air->isWorking)
 		containsGas = false;		
 	fog->SetVisibility(containsGas);

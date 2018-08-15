@@ -3,10 +3,11 @@
 #include "GameFramework/Actor.h"
 #include "Components/SceneComponent.h"
 #include "DerelictGameModeBase.h"
+#include "Components/ActorComponent.h"
 #include "ToolBase.generated.h"
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class DERELICTSWAMPLANDS_API UToolBase : public USceneComponent
+class DERELICTSWAMPLANDS_API UToolBase : public UActorComponent
 {
 	GENERATED_BODY()
 	

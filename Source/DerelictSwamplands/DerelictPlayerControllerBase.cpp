@@ -6,6 +6,7 @@ void ADerelictPlayerControllerBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//Creates main and crafting widgets
 	if (FPMainWidget)
 	{
 		mainWidget = CreateWidget<UUserWidget>(this, FPMainWidget);

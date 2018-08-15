@@ -41,6 +41,8 @@ void UFlashlightBase::Use()
 void UFlashlightBase::Reload()
 {
 	Super::Reload();
+
+	//Displays a warning if reloading when battery is greater than 90.  Maybe add confirmation prompt in the future.
 	if (battery < 90)
 	{
 		lowBatteryDisplayed = false;

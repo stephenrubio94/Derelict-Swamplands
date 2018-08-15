@@ -15,12 +15,14 @@ void UBlowtorchBase::BeginPlay()
 
 void UBlowtorchBase::Use()
 {
+	//If tool is loaded, raytrace to find a nearby door
 	if (isLoaded)
 	{
 		//TODO Play sparks animation
 		ADoor* result = Cast<ADoor>(Cast<ADerelictCharacterBase>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))->raytrace());
 		if (!result)
 			return;
+		//If raytrace returned a door, check if that door is sealed.  If it isn't, repair it.
 		if (result->isAirtight)
 			((ADerelictGameModeBase*)GetWorld()->GetAuthGameMode())->WriteToDisplay(FText::FromString("Door Already Airtight"));
 		else

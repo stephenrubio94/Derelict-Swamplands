@@ -16,8 +16,10 @@ public:
 	virtual void ToggleHolding() override;
 	void UpdateRebreather(float deltaSeconds);
 
+	//Percent durability the filter has left.  When it hits 0, it no longer filters out air.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 	float filterDurability;
+	//Rate of durability removed per tick
 	float drainRate;
 	bool isOn;
 	bool lowFilterDisplayed;

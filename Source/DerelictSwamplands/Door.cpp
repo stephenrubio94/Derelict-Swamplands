@@ -9,6 +9,7 @@ ADoor::ADoor()
 	isOpen = false;
 	linkedGasBPs.Init(nullptr, 2);
 
+	//Sets up door mesh
 	doorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DoorMesh"));
 	doorMesh->SetupAttachment(RootComponent);
 	doorMesh->SetRelativeLocation(doorClosed);
@@ -24,9 +25,9 @@ void ADoor::BeginPlay()
 	Super::BeginPlay();
 	UpdateMouseoverText();
 
+	//Sets up door open timeline components
 	FOnTimelineFloat onTimelineCallback;
 	FOnTimelineEventStatic onTimelineFinishedCallback;
-
 	doorOpenTimeline = NewObject<UTimelineComponent>(this, FName("TimelineAnimation"));
 	this->BlueprintCreatedComponents.Add(doorOpenTimeline);
 	doorOpenTimeline->SetDirectionPropertyName(FName("TimelineDirection"));
@@ -51,6 +52,7 @@ void ADoor::Tick(float DeltaTime)
 
 void ADoor::Interact()
 {
+	//If door is closed, open it.  If door is open, close it.
 	if (CanOpenDoor())
 	{
 		UGameplayStatics::PlaySoundAtLocation(this, DoorOpenSound, GetActorLocation());

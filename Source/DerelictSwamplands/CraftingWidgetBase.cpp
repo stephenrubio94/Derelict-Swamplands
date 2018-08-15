@@ -2,6 +2,7 @@
 #include "DerelictCharacterBase.h"
 #include "DerelictGameModeBase.h"
 
+//Initializes requiredItems by adding 0 of every item
 UCraftingWidgetBase::UCraftingWidgetBase(const FObjectInitializer& ObjectInitializer) : UUserWidget(ObjectInitializer)
 {
 	TMap<EInventory, int> requiredItems;

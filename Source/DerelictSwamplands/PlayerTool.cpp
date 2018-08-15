@@ -1,20 +1,10 @@
-
-
 #include "PlayerTool.h"
 
-
-// Sets default values for this component's properties
 UPlayerTool::UPlayerTool()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
 
-
-// Called when the game starts
 void UPlayerTool::BeginPlay()
 {
 	Super::BeginPlay();
@@ -29,15 +19,9 @@ void UPlayerTool::BeginPlay()
 //	// ...
 //}
 
-void UPlayerTool::Use()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Super use"));
-}
+void UPlayerTool::Use() {}
 
-void UPlayerTool::Reload()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Super reload"));
-}
+void UPlayerTool::Reload() {}
 
 void UPlayerTool::ToggleHolding()
 {

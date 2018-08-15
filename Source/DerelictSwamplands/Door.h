@@ -21,6 +21,7 @@ public:
 	ADoor();
 	void Interact();
 	void UpdateMouseoverText();
+	//Seals door
 	void Seal();
 	bool CanOpenDoor();
 
@@ -28,11 +29,16 @@ public:
 	bool isBroken;
 	bool isAirtight;
 	bool isOpen;
+	//The Gas volume BPs the door connects.  Always 2.
 	TArray<class AGasBase*> linkedGasBPs;
+	//Subsection the door is in
 	class ASubsection* subsection;
+	//Door's realtive open position
 	FVector doorOpen;
+	//Door's realtive closed position
 	FVector doorClosed;
 
+	//Door open timeline code
 	UFUNCTION()
 		void TimelineUpdate(float value);
 	UFUNCTION()

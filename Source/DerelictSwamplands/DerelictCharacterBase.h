@@ -24,6 +24,7 @@ protected:
 	void TurnAtRate(float Rate);
 	void LookUpAtRate(float Rate);
 
+	//All of the player's tools
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class UCameraComponent* FirstPersonCameraComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Actor", meta = (AllowPrivateAccess = "true"))
@@ -48,13 +49,17 @@ public:
 	void EquipRebreather();
 	void EquipBlowtorch();
 	void Reload();
+	//Calls the Action function of the equipped item
 	void Action();
+	//Raytraces and interacts with the hit object
 	void Interact();
+	//Opens the crafting menu
 	void OpenCrafting();
 	void UpdateMouseoverText();
 	AInteractable* raytrace();
 	void SetInGas(bool inGas, float DPS);
-	void CheckGas(float deltaSeconds);
+	//Deals damage to the player if they are in gas
+	void TickGas(float deltaSeconds);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")
 		float health;
@@ -64,6 +69,7 @@ public:
 		bool isInGas;
 	float gasDPS;
 	float moveSpeed;
+	//If the mouseover text has already been updated since looking at an object
 	bool mouseOverTextWritten;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Actor")

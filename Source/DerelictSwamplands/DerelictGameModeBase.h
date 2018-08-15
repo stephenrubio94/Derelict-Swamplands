@@ -6,6 +6,7 @@
 #include "Subsection.h"
 #include "DerelictGameModeBase.generated.h"
 
+//Inventory item enum
 UENUM(BlueprintType)
 enum class EInventory : uint8
 {
@@ -15,6 +16,7 @@ enum class EInventory : uint8
 	AirFilter	UMETA(DisplayName = "AirFilter")
 };
 
+//Substation type enum
 UENUM(BlueprintType)
 enum class ESubstation : uint8
 {
@@ -30,10 +32,13 @@ class DERELICTSWAMPLANDS_API ADerelictGameModeBase : public AGameModeBase
 public:
 	ADerelictGameModeBase();
 	void SetMouseoverText(FText textToWrite);
-	void WriteToDisplay(FText textToWrite);
 	void SetMouseoverText(FString textToWrite);
+	//Writes text to HUD
+	void WriteToDisplay(FText textToWrite);
 	void WriteToDisplay(FString textToWrite);
+	//List of all subsections
 	TArray<ASubsection*> subsections;
+	//String array to get names of enums
 	TArray<FString> EInventoryName;
 	TArray<FString> ESubstationName;
 	FString GetInventoryName(EInventory value);

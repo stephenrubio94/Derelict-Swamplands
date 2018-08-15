@@ -1,6 +1,4 @@
-
-
-#pragma once
+6#pragma once
 
 #include "CoreMinimal.h"
 #include "Components/SceneComponent.h"
@@ -12,16 +10,11 @@ UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DERELICTSWAMPLANDS_API UPlayerTool : public USceneComponent
 {
 	GENERATED_BODY()
-
-public:	
-	// Sets default values for this component's properties
-	UPlayerTool();
-
-
 protected:
 	virtual void BeginPlay() override;
 
 public:
+	UPlayerTool();
 	UFUNCTION(BlueprintCallable, Category = "Tool")
 		virtual void Use();
 	UFUNCTION(BlueprintCallable, Category = "Tool")
@@ -29,6 +22,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Tool")
 		virtual void ToggleHolding();
 
+	//Item used to reload this tool
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tool")
 		EInventory ReloadItem;
 };

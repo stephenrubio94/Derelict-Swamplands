@@ -10,6 +10,7 @@ Craftable::Craftable(int id, FString name, FString description, bool isUpgrade, 
 	this->requiredItems = requiredItems;
 }
 
+//TODO
 void Craftable::Craft()
 {
 	if (HaveMaterials())

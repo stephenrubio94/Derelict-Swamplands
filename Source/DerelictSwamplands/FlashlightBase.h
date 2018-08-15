@@ -20,10 +20,13 @@ public:
 	void UpdateFlashlight(float deltaSeconds);
 
 	float maxIntensity;
+	//Percentage of battery remaining
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Battery")
 	float battery;
+	//Amount of battery removed per tick
 	float drainRate;
 	bool isOn;
+	//If a low battery warning has already been displayed
 	bool lowBatteryDisplayed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
