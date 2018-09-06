@@ -7,7 +7,7 @@
 #include "ToolBase.generated.h"
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class DERELICTSWAMPLANDS_API UToolBase : public UActorComponent
+class DERELICTSWAMPLANDS_API UToolBase : public USceneComponent
 {
 	GENERATED_BODY()
 	
